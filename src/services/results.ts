@@ -12,7 +12,7 @@ export const runTests = (
 	aCooperationFn: ICooperationFn,
 	bCooperationFn: ICooperationFn
 ): IResults => {
-	let results: IResults = {
+	const results = {
 		aResult: 0,
 		bResult: 0,
 	};
@@ -25,17 +25,15 @@ export const runTests = (
 		myMoves: [],
 	};
 	for (let i = 0; i < numberOfTimes; i++) {
-		const aChoice: boolean = aCooperationFn(aHistory);
-		const bChoice: boolean = bCooperationFn(bHistory);
+		const aChoice = aCooperationFn(aHistory);
+		const bChoice = bCooperationFn(bHistory);
 		aHistory.myMoves.push(aChoice);
 		aHistory.competitorMoves.push(bChoice);
 		bHistory.myMoves.push(bChoice);
 		bHistory.competitorMoves.push(aChoice);
 		const oneTimeResult = calculateResults(aChoice, bChoice);
-		results = {
-			aResult: results.aResult + oneTimeResult.aResult,
-			bResult: results.bResult + oneTimeResult.bResult,
-		};
+		results.aResult = results.aResult + oneTimeResult.aResult;
+		results.bResult = results.bResult + oneTimeResult.bResult;
 	}
 	return results;
 };
