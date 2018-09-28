@@ -1,4 +1,5 @@
 import { IBot, IHistory } from '../bots/bot';
+import * as punishments from '../data/punishments';
 
 export interface IBotResult {
 	name: string;
@@ -64,22 +65,22 @@ export const runTests = (
 };
 
 export const calculateResults = (aCooperate: boolean, bCooperate: boolean): IResults => {
-	let aResult = 0;
-	let bResult = 0;
+	let aResult = punishments.none;
+	let bResult = punishments.none;
 
 	if (aCooperate && bCooperate) {
-		aResult += 3;
-		bResult += 3;
+		aResult = punishments.light;
+		bResult = punishments.light;
 	}
 	if (!aCooperate && !bCooperate) {
-		aResult += 1;
-		bResult += 1;
+		aResult = punishments.harsh;
+		bResult = punishments.harsh;
 	}
 	if (aCooperate && !bCooperate) {
-		bResult += 5;
+		aResult = punishments.harsh;
 	}
 	if (!aCooperate && bCooperate) {
-		aResult += 5;
+		bResult = punishments.harsh;
 	}
 	return {
 		aResult,

@@ -1,6 +1,7 @@
 import * as chai from 'chai';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
+import * as punishments from '../data/punishments';
 import * as testObject from './results';
 chai.use(sinonChai);
 const { expect } = chai;
@@ -11,29 +12,29 @@ describe('services: results', () => {
 		test('gives both small reward when they cooperate', () => {
 			const result = testObject.calculateResults(true, true);
 
-			expect(result.aResult).to.eql(3);
-			expect(result.bResult).to.eql(3);
+			expect(result.aResult).to.eql(punishments.light);
+			expect(result.bResult).to.eql(punishments.light);
 		});
 
 		test('gives player A big reward when they fink on B cooperator', () => {
 			const result = testObject.calculateResults(false, true);
 
-			expect(result.aResult).to.eql(5);
-			expect(result.bResult).to.eql(0);
+			expect(result.aResult).to.eql(punishments.none);
+			expect(result.bResult).to.eql(punishments.harsh);
 		});
 
 		test('gives player B big reward when they fink on A cooperator', () => {
 			const result = testObject.calculateResults(true, false);
 
-			expect(result.aResult).to.eql(0);
-			expect(result.bResult).to.eql(5);
+			expect(result.aResult).to.eql(punishments.harsh);
+			expect(result.bResult).to.eql(punishments.none);
 		});
 
-		test('gives both small reward when they both fink', () => {
+		test('gives both harsh punishment when they both fink', () => {
 			const result = testObject.calculateResults(false, false);
 
-			expect(result.aResult).to.eql(1);
-			expect(result.bResult).to.eql(1);
+			expect(result.aResult).to.eql(punishments.harsh);
+			expect(result.bResult).to.eql(punishments.harsh);
 		});
 	});
 
