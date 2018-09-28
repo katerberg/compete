@@ -1,9 +1,11 @@
+import { IHistory } from '../bots/bot';
+
 export interface IResults {
 	aResult: number;
 	bResult: number;
 }
 
-export type ICooperationFn = () => boolean;
+export type ICooperationFn = (history?: IHistory) => boolean;
 
 export const runTests = (
 	numberOfTimes: number,
@@ -14,8 +16,22 @@ export const runTests = (
 		aResult: 0,
 		bResult: 0,
 	};
+	const aHistory: IHistory = {
+		competitorMoves: [],
+		myMoves: [],
+	};
+	const bHistory: IHistory = {
+		competitorMoves: [],
+		myMoves: [],
+	};
 	for (let i = 0; i < numberOfTimes; i++) {
-		const oneTimeResult = calculateResults(aCooperationFn(), bCooperationFn());
+		const aChoice: boolean = aCooperationFn(aHistory);
+		const bChoice: boolean = bCooperationFn(bHistory);
+		aHistory.myMoves.push(aChoice);
+		aHistory.competitorMoves.push(bChoice);
+		bHistory.myMoves.push(bChoice);
+		bHistory.competitorMoves.push(aChoice);
+		const oneTimeResult = calculateResults(aChoice, bChoice);
 		results = {
 			aResult: results.aResult + oneTimeResult.aResult,
 			bResult: results.bResult + oneTimeResult.bResult,

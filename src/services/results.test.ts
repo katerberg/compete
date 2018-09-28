@@ -1,6 +1,10 @@
-import { expect } from 'chai';
+import * as chai from 'chai';
 import * as sinon from 'sinon';
+import * as sinonChai from 'sinon-chai';
 import * as testObject from './results';
+chai.use(sinonChai);
+const { expect } = chai;
+import { IHistory } from '../bots/bot';
 
 describe('services: results', () => {
 	describe('calculateResults', () => {
@@ -69,6 +73,43 @@ describe('services: results', () => {
 				aResult: 8,
 				bResult: 4,
 			});
+		});
+
+		test('builds up and passes history', () => {
+			const mockResponse: testObject.IResults = {
+				aResult: 2,
+				bResult: 1,
+			};
+			mockCalculator.returns(mockResponse);
+			let aCount = 0;
+			let bCount = 0;
+			const aFn: sinon.SinonStub = sinon.stub().callsFake((history: IHistory) => {
+				aCount++;
+				if (aCount === 1) {
+					expect(history.competitorMoves).to.eql([]);
+					expect(history.myMoves).to.eql([]);
+				} else {
+					expect(history.competitorMoves).to.eql([false]);
+					expect(history.myMoves).to.eql([true]);
+				}
+				return true;
+			});
+			const bFn: sinon.SinonStub = sinon.stub().callsFake((history: IHistory) => {
+				bCount++;
+				if (bCount === 1) {
+					expect(history.competitorMoves).to.eql([]);
+					expect(history.myMoves).to.eql([]);
+				} else {
+					expect(history.competitorMoves).to.eql([true]);
+					expect(history.myMoves).to.eql([false]);
+				}
+				return false;
+			});
+
+			const result: testObject.IResults = testObject.runTests(2, aFn, bFn);
+
+			expect(aFn.callCount).to.equal(2);
+			expect(bFn.callCount).to.equal(2);
 		});
 	});
 });
