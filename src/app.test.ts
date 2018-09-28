@@ -16,3 +16,11 @@ describe('GET /home', () => {
 			.expect(200, done);
 	});
 });
+
+describe('GET /robin', () => {
+	it('should return 200', done => {
+		request(app)
+			.get('/robin')
+			.expect(200, done);
+	});
+});

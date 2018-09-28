@@ -4,5 +4,6 @@ export interface IHistory {
 }
 
 export interface IBot {
+	name: string;
 	cooperate: (history: IHistory) => boolean;
 }

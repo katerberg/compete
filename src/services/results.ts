@@ -1,4 +1,9 @@
-import { IHistory } from '../bots/bot';
+import { IBot, IHistory } from '../bots/bot';
+
+export interface IBotResult {
+	name: string;
+	result: number;
+}
 
 export interface IResults {
 	aResult: number;
@@ -6,6 +11,26 @@ export interface IResults {
 }
 
 export type ICooperationFn = (history?: IHistory) => boolean;
+
+export const roundRobin = (numberOfTimes: number, bots: IBot[]): IBotResult[] => {
+	const results: IBotResult[] = [];
+	for (let i = 0; i < bots.length; i++) {
+		results[i] = {
+			name: bots[i].name,
+			result: 0,
+		};
+	}
+	for (let i = 0; i < bots.length; i++) {
+		for (let j = 0; j < bots.length; j++) {
+			if (i !== j && j > i) {
+				const oneOnOne = runTests(numberOfTimes, bots[i].cooperate, bots[j].cooperate);
+				results[i].result += oneOnOne.aResult;
+				results[j].result += oneOnOne.bResult;
+			}
+		}
+	}
+	return results;
+};
 
 export const runTests = (
 	numberOfTimes: number,
