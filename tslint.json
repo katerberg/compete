@@ -2,13 +2,25 @@
     "extends": ["tslint:latest", "tslint-config-prettier"],
     "rules": {
         "new-parens": true,
+        "no-any": true,
         "no-arg": true,
         "no-bitwise": true,
         "no-conditional-assignment": true,
-        "no-consecutive-blank-lines": false,
+        "no-consecutive-blank-lines": true,
         "no-implicit-dependencies": [true, "dev"],
         "no-unused-expression": false,
-        "no-console": false
+        "no-console": {
+            "severity": "error",
+            "options": [
+                "debug",
+                "info",
+                "log",
+                "time",
+                "timeEnd",
+                "trace"
+            ]
+        },
+        "no-inferrable-types": true
     },
     "rulesDirectory": [
       "node_modules/tslint-eslint-rules/dist/rules"
