@@ -6,7 +6,10 @@
   "scripts": {
     "start": "npm run build-ts && node dist/server.js",
     "build-ts": "tsc",
-    "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
+    "test": "jest --detectOpenHandles",
+    "test:ci": "npm run test:base -- --coverage --verbose",
+    "test:watch": "npm run test:base -- --watch",
+    "cleanup": "npm run prettier:fix && npm run tslint:fix",
     "prettier": "prettier 'src/**/*'",
     "prettier:ci": "npm run prettier -- -l",
     "prettier:fix": "npm run prettier -- --write",
