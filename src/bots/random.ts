@@ -1,7 +1,7 @@
-import { IHistory } from './bot';
+import { IBot, IHistory } from './bot';
 
-export class RandomBot {
-	public cooperate = (history: IHistory): boolean => {
+export class RandomBot implements IBot {
+	public cooperate = (): boolean => {
 		return Math.random() > 0.5;
 	};
 }
