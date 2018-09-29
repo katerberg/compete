@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { BackAndForthBot } from '../bots/backAndForth';
 import { IBot } from '../bots/bot';
 import { CooperativeBot } from '../bots/cooperative';
+import { FriendlyBot } from '../bots/friendly';
 import { RandomBot } from '../bots/random';
 import { TitForTatBot } from '../bots/titForTat';
 import { UncooperativeBot } from '../bots/uncooperative';
@@ -24,6 +25,7 @@ export const robinRoute = (req: Request, res: Response) => {
 		new UncooperativeBot(),
 		new TitForTatBot(),
 		new BackAndForthBot(),
+		new FriendlyBot(),
 	];
 	const iterations = req.query.iterations || 1000;
 
