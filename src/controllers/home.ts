@@ -7,6 +7,7 @@ import { RandomBot } from '../bots/random';
 import { TitForTatBot } from '../bots/titForTat';
 import { TryToBeFriendlyThreeTimesBot } from '../bots/tryToBeFriendlyThreeTimes';
 import { UncooperativeBot } from '../bots/uncooperative';
+import { WelcomingTitForTatBot } from '../bots/welcomingTitForTat';
 import { roundRobin, runTests } from '../services/results';
 
 export const oneOnOneRoute = (req: Request, res: Response) => {
@@ -24,6 +25,7 @@ export const robinRoute = (req: Request, res: Response) => {
 		new RandomBot(),
 		new CooperativeBot(),
 		new UncooperativeBot(),
+		new WelcomingTitForTatBot(),
 		new TitForTatBot(),
 		new BackAndForthBot(),
 		new FriendlyBot(),
