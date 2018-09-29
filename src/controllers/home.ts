@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { BackAndForthBot } from '../bots/backAndForth';
 import { IBot } from '../bots/bot';
 import { CooperativeBot } from '../bots/cooperative';
 import { RandomBot } from '../bots/random';
@@ -17,7 +18,13 @@ export const oneOnOneRoute = (req: Request, res: Response) => {
 };
 
 export const robinRoute = (req: Request, res: Response) => {
-	const bots: IBot[] = [new RandomBot(), new CooperativeBot(), new UncooperativeBot(), new TitForTatBot()];
+	const bots: IBot[] = [
+		new RandomBot(),
+		new CooperativeBot(),
+		new UncooperativeBot(),
+		new TitForTatBot(),
+		new BackAndForthBot(),
+	];
 	const iterations = req.query.iterations || 1000;
 
 	res.status(200).send(roundRobin(iterations, bots));
