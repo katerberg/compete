@@ -68,19 +68,20 @@ export const calculateResults = (aCooperate: boolean, bCooperate: boolean): IRes
 	let aResult = punishments.none;
 	let bResult = punishments.none;
 
-	if (aCooperate && bCooperate) {
-		aResult = punishments.light;
-		bResult = punishments.light;
-	}
-	if (!aCooperate && !bCooperate) {
-		aResult = punishments.harsh;
-		bResult = punishments.harsh;
-	}
-	if (aCooperate && !bCooperate) {
-		aResult = punishments.harsh;
-	}
-	if (!aCooperate && bCooperate) {
-		bResult = punishments.harsh;
+	if (aCooperate) {
+		if (bCooperate) {
+			aResult = punishments.light;
+			bResult = punishments.light;
+		} else {
+			aResult = punishments.harsh;
+		}
+	} else {
+		if (bCooperate) {
+			bResult = punishments.harsh;
+		} else {
+			aResult = punishments.harsh;
+			bResult = punishments.harsh;
+		}
 	}
 	return {
 		aResult,
