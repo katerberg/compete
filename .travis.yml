@@ -4,4 +4,4 @@ node_js:
 script:
   - "npm run prettier:ci"
   - "npm run tslint:ci"
-  - "npm test:ci"
+  - "npm run test:ci"
