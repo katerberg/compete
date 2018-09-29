@@ -65,22 +65,22 @@ export const runTests = (
 };
 
 export const calculateResults = (aCooperate: boolean, bCooperate: boolean): IResults => {
-	let aResult = punishments.narc;
-	let bResult = punishments.narc;
+	let aResult = punishments.temptation;
+	let bResult = punishments.temptation;
 
 	if (aCooperate) {
 		if (bCooperate) {
-			aResult = punishments.minor;
-			bResult = punishments.minor;
+			aResult = punishments.reward;
+			bResult = punishments.reward;
 		} else {
-			aResult = punishments.soldOut;
+			aResult = punishments.sucker;
 		}
 	} else {
 		if (bCooperate) {
-			bResult = punishments.soldOut;
+			bResult = punishments.sucker;
 		} else {
-			aResult = punishments.regular;
-			bResult = punishments.regular;
+			aResult = punishments.punishment;
+			bResult = punishments.punishment;
 		}
 	}
 	return {

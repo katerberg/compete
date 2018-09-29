@@ -1,4 +1,4 @@
-export const soldOut = 0;
-export const regular = 1;
-export const minor = 3;
-export const narc = 5;
+export const sucker = 0;
+export const punishment = 1;
+export const reward = 3;
+export const temptation = 5;
