@@ -30,6 +30,6 @@ export const robinRoute = (req: Request, res: Response) => {
 		new TryToBeFriendlyThreeTimesBot(),
 	];
 	const iterations = req.query.iterations || 1000;
-
-	res.status(200).send(roundRobin(iterations, bots));
+	const results = roundRobin(iterations, bots);
+	res.status(200).send(results.sort((a, b) => (a.result > b.result ? -1 : 1)));
 };
