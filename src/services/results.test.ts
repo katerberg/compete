@@ -9,32 +9,32 @@ import { IHistory } from '../bots/bot';
 
 describe('services: results', () => {
 	describe('calculateResults', () => {
-		test('gives both small reward when they cooperate', () => {
+		test('gives both small punishment when they cooperate', () => {
 			const result = testObject.calculateResults(true, true);
 
-			expect(result.aResult).to.eql(punishments.light);
-			expect(result.bResult).to.eql(punishments.light);
+			expect(result.aResult).to.eql(punishments.minor);
+			expect(result.bResult).to.eql(punishments.minor);
 		});
 
 		test('gives player A big reward when they fink on B cooperator', () => {
 			const result = testObject.calculateResults(false, true);
 
-			expect(result.aResult).to.eql(punishments.none);
-			expect(result.bResult).to.eql(punishments.harsh);
+			expect(result.aResult).to.eql(punishments.narc);
+			expect(result.bResult).to.eql(punishments.soldOut);
 		});
 
 		test('gives player B big reward when they fink on A cooperator', () => {
 			const result = testObject.calculateResults(true, false);
 
-			expect(result.aResult).to.eql(punishments.harsh);
-			expect(result.bResult).to.eql(punishments.none);
+			expect(result.aResult).to.eql(punishments.soldOut);
+			expect(result.bResult).to.eql(punishments.narc);
 		});
 
-		test('gives both harsh punishment when they both fink', () => {
+		test('gives both real punishment when they both fink', () => {
 			const result = testObject.calculateResults(false, false);
 
-			expect(result.aResult).to.eql(punishments.harsh);
-			expect(result.bResult).to.eql(punishments.harsh);
+			expect(result.aResult).to.eql(punishments.regular);
+			expect(result.bResult).to.eql(punishments.regular);
 		});
 	});
 
