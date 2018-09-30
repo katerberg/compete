@@ -31,6 +31,8 @@ export class Bot implements IBot {
 				return Math.random() > 0.5;
 			case IStrategy.TitForTat:
 				return history.competitorMoves[history.competitorMoves.length - 1];
+			case IStrategy.BackAndForth:
+				return !history.myMoves[history.myMoves.length - 1];
 		}
 	};
 }

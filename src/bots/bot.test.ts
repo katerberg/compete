@@ -126,6 +126,32 @@ describe('bots: bot', () => {
 
 				expect(result).to.eql(previousMove);
 			});
+
+			describe('back and forth', () => {
+				test('gives true when it gave false last time', () => {
+					const input: IHistory = {
+						competitorMoves: [true],
+						myMoves: [false],
+					};
+					const testObject = new Bot('test', IStart.Random, IStrategy.BackAndForth);
+
+					const result = testObject.cooperate(input);
+
+					expect(result).to.eql(true);
+				});
+
+				test('gives false when it gave true last time', () => {
+					const input: IHistory = {
+						competitorMoves: [true],
+						myMoves: [true],
+					};
+					const testObject = new Bot('test', IStart.Random, IStrategy.BackAndForth);
+
+					const result = testObject.cooperate(input);
+
+					expect(result).to.eql(false);
+				});
+			});
 		});
 	});
 });
