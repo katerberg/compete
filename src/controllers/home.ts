@@ -25,7 +25,7 @@ export const robinRoute = (req: Request, res: Response) => {
 		new Bot('Back And Forth', IStart.Random, IStrategy.BackAndForth),
 		new Bot('Friendly', IStart.Friendly, IStrategy.Friendly),
 		new Bot('Baseball', IStart.Friendly, IStrategy.Baseball),
-		new FrenemyBot(),
+		new Bot('Frenemy', IStart.Friendly, IStrategy.Friendly, 0.05),
 		new ForgivingBot(),
 	];
 	const iterations = req.query.iterations || 1000;

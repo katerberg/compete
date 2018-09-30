@@ -2,16 +2,21 @@ import { IBot, IHistory, IStart, IStrategy } from '../interfaces';
 
 export class Bot implements IBot {
 	public name: string;
+	public defectChance: number;
 	public start: IStart;
 	public strategy: IStrategy;
 
-	constructor(name: string, start: IStart, strategy: IStrategy) {
+	constructor(name: string, start: IStart, strategy: IStrategy, defectChance?: number) {
 		this.name = name;
 		this.start = start;
 		this.strategy = strategy;
+		this.defectChance = defectChance;
 	}
 
 	public cooperate = (history: IHistory): boolean => {
+		if (this.defectChance && Math.random() < this.defectChance) {
+			return false;
+		}
 		if (!history.myMoves.length) {
 			switch (this.start) {
 				case IStart.Friendly:
