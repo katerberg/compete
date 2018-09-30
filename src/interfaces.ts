@@ -32,4 +32,5 @@ export enum IStrategy {
 	TitForTat,
 	Uncooperative,
 	BackAndForth,
+	Friendly,
 }

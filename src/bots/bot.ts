@@ -33,6 +33,10 @@ export class Bot implements IBot {
 				return history.competitorMoves[history.competitorMoves.length - 1];
 			case IStrategy.BackAndForth:
 				return !history.myMoves[history.myMoves.length - 1];
+			case IStrategy.Friendly:
+				const myPreviousMove = history.myMoves[history.myMoves.length - 1];
+				const competitorPreviousMove = history.competitorMoves[history.competitorMoves.length - 1];
+				return myPreviousMove && competitorPreviousMove;
 		}
 	};
 }

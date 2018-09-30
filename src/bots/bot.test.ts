@@ -152,6 +152,44 @@ describe('bots: bot', () => {
 					expect(result).to.eql(false);
 				});
 			});
+
+			describe('friendly', () => {
+				test('is friendly if previous moves have been friendly', () => {
+					const input: IHistory = {
+						competitorMoves: [true],
+						myMoves: [true],
+					};
+					const testObject = new Bot('test', IStart.Random, IStrategy.Friendly);
+
+					const result = testObject.cooperate(input);
+
+					expect(result).to.eql(true);
+				});
+
+				test('finks if opponent finked before', () => {
+					const input: IHistory = {
+						competitorMoves: [false],
+						myMoves: [true],
+					};
+					const testObject = new Bot('test', IStart.Random, IStrategy.Friendly);
+
+					const result = testObject.cooperate(input);
+
+					expect(result).to.eql(false);
+				});
+
+				test('finks if opponent ever finked before', () => {
+					const input: IHistory = {
+						competitorMoves: [false, true],
+						myMoves: [true, false],
+					};
+					const testObject = new Bot('test', IStart.Random, IStrategy.Friendly);
+
+					const result = testObject.cooperate(input);
+
+					expect(result).to.eql(false);
+				});
+			});
 		});
 	});
 });
