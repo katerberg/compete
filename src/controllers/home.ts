@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { Bot } from '../bots/bot';
 import { ForgivingBot } from '../bots/forgiving';
 import { FrenemyBot } from '../bots/frenemy';
-import { TryToBeFriendlyThreeTimesBot } from '../bots/tryToBeFriendlyThreeTimes';
 import { IBot, IStart, IStrategy } from '../interfaces';
 import { roundRobin, runTests } from '../services/results';
 
@@ -25,7 +24,7 @@ export const robinRoute = (req: Request, res: Response) => {
 		new Bot('Tit For Tat', IStart.Random, IStrategy.TitForTat),
 		new Bot('Back And Forth', IStart.Random, IStrategy.BackAndForth),
 		new Bot('Friendly', IStart.Friendly, IStrategy.Friendly),
-		new TryToBeFriendlyThreeTimesBot(),
+		new Bot('Baseball', IStart.Friendly, IStrategy.Baseball),
 		new FrenemyBot(),
 		new ForgivingBot(),
 	];

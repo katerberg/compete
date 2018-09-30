@@ -33,4 +33,5 @@ export enum IStrategy {
 	Uncooperative,
 	BackAndForth,
 	Friendly,
+	Baseball,
 }

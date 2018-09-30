@@ -37,6 +37,8 @@ export class Bot implements IBot {
 				const myPreviousMove = history.myMoves[history.myMoves.length - 1];
 				const competitorPreviousMove = history.competitorMoves[history.competitorMoves.length - 1];
 				return myPreviousMove && competitorPreviousMove;
+			case IStrategy.Baseball:
+				return history.competitorMoves.filter(move => !move).length < 3;
 		}
 	};
 }
