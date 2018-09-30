@@ -25,3 +25,10 @@ export enum IStart {
 	Random,
 	Unfriendly,
 }
+
+export enum IStrategy {
+	Cooperative,
+	Random,
+	TitForTat,
+	Uncooperative,
+}

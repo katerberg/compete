@@ -1,20 +1,18 @@
 import { Request, Response } from 'express';
 import { BackAndForthBot } from '../bots/backAndForth';
 import { Bot } from '../bots/bot';
-import { CooperativeBot } from '../bots/cooperative';
 import { ForgivingBot } from '../bots/forgiving';
 import { FrenemyBot } from '../bots/frenemy';
 import { FriendlyBot } from '../bots/friendly';
 import { TitForTatBot } from '../bots/titForTat';
 import { TryToBeFriendlyThreeTimesBot } from '../bots/tryToBeFriendlyThreeTimes';
-import { UncooperativeBot } from '../bots/uncooperative';
 import { WelcomingTitForTatBot } from '../bots/welcomingTitForTat';
-import { IBot, IStart } from '../interfaces';
+import { IBot, IStart, IStrategy } from '../interfaces';
 import { roundRobin, runTests } from '../services/results';
 
 export const oneOnOneRoute = (req: Request, res: Response) => {
-	const bot1: IBot = new Bot('Random', IStart.Random);
-	const bot2: IBot = new CooperativeBot();
+	const bot1: IBot = new Bot('Random', IStart.Random, IStrategy.Random);
+	const bot2: IBot = new Bot('Cooperative', IStart.Friendly, IStrategy.Cooperative);
 	const results = runTests(req.query.iterations || 1000, bot1.cooperate, bot2.cooperate);
 	res.status(200).send({
 		bot1: results.aResult,
@@ -24,9 +22,9 @@ export const oneOnOneRoute = (req: Request, res: Response) => {
 
 export const robinRoute = (req: Request, res: Response) => {
 	const bots: IBot[] = [
-		new Bot('Random', IStart.Random),
-		new CooperativeBot(),
-		new UncooperativeBot(),
+		new Bot('Random', IStart.Random, IStrategy.Random),
+		new Bot('Cooperative', IStart.Friendly, IStrategy.Cooperative),
+		new Bot('Uncooperative', IStart.Unfriendly, IStrategy.Uncooperative),
 		new WelcomingTitForTatBot(),
 		new TitForTatBot(),
 		new BackAndForthBot(),

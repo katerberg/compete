@@ -1,30 +1,21 @@
 import * as chai from 'chai';
+import { mockRandom } from 'jest-mock-random';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
-import { IHistory, IStart } from '../interfaces';
+import { IHistory, IStart, IStrategy } from '../interfaces';
 import { Bot } from './bot';
 chai.use(sinonChai);
 const { expect } = chai;
 
 describe('bots: bot', () => {
 	describe('cooperate', () => {
-		let mockRandom: sinon.SinonStub;
-
-		beforeEach(() => {
-			mockRandom = sinon.stub(Math, 'random');
-		});
-
-		afterEach(() => {
-			mockRandom.restore();
-		});
-
 		describe('start', () => {
 			test('starts friendly if given that choice', () => {
 				const input: IHistory = {
 					competitorMoves: [],
 					myMoves: [],
 				};
-				const testObject = new Bot('test', IStart.Friendly);
+				const testObject = new Bot('test', IStart.Friendly, IStrategy.Random);
 
 				const result = testObject.cooperate(input);
 
@@ -36,7 +27,7 @@ describe('bots: bot', () => {
 					competitorMoves: [],
 					myMoves: [],
 				};
-				const testObject = new Bot('test', IStart.Unfriendly);
+				const testObject = new Bot('test', IStart.Unfriendly, IStrategy.Random);
 
 				const result = testObject.cooperate(input);
 
@@ -48,9 +39,8 @@ describe('bots: bot', () => {
 					competitorMoves: [],
 					myMoves: [],
 				};
-				const expected = 0.51;
-				const testObject = new Bot('test', IStart.Random);
-				mockRandom.returns(expected);
+				const testObject = new Bot('test', IStart.Random, IStrategy.Random);
+				mockRandom(0.51);
 
 				const result = testObject.cooperate(input);
 
@@ -62,9 +52,8 @@ describe('bots: bot', () => {
 					competitorMoves: [],
 					myMoves: [],
 				};
-				const expected = 0.5;
-				mockRandom.returns(expected);
-				const testObject = new Bot('test', IStart.Random);
+				mockRandom([0.5]);
+				const testObject = new Bot('test', IStart.Random, IStrategy.Random);
 
 				const result = testObject.cooperate(input);
 
@@ -73,28 +62,52 @@ describe('bots: bot', () => {
 		});
 
 		describe('nonstart', () => {
-			test('cooperates on greater than 0.5', () => {
+			describe('random', () => {
+				test('cooperates on greater than 0.5', () => {
+					const input: IHistory = {
+						competitorMoves: [true],
+						myMoves: [true],
+					};
+					const testObject = new Bot('test', IStart.Random, IStrategy.Random);
+					mockRandom([0.51]);
+
+					const result = testObject.cooperate(input);
+
+					expect(result).to.eql(true);
+				});
+
+				test('finks on less or equal to 0.5', () => {
+					const input: IHistory = {
+						competitorMoves: [true],
+						myMoves: [true],
+					};
+					mockRandom([0.5]);
+					const testObject = new Bot('test', IStart.Random, IStrategy.Random);
+
+					const result = testObject.cooperate(input);
+
+					expect(result).to.eql(false);
+				});
+			});
+
+			test('cooperative cooperates', () => {
 				const input: IHistory = {
 					competitorMoves: [true],
 					myMoves: [true],
 				};
-				const expected = 0.51;
-				const testObject = new Bot('test', IStart.Random);
-				mockRandom.returns(expected);
+				const testObject = new Bot('test', IStart.Random, IStrategy.Cooperative);
 
 				const result = testObject.cooperate(input);
 
 				expect(result).to.eql(true);
 			});
 
-			test('finks on less or equal to 0.5', () => {
+			test('uncooperative finks', () => {
 				const input: IHistory = {
 					competitorMoves: [true],
 					myMoves: [true],
 				};
-				const expected = 0.5;
-				mockRandom.returns(expected);
-				const testObject = new Bot('test', IStart.Random);
+				const testObject = new Bot('test', IStart.Random, IStrategy.Uncooperative);
 
 				const result = testObject.cooperate(input);
 
