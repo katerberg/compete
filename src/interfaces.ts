@@ -19,3 +19,9 @@ export interface IBot {
 	name: string;
 	cooperate: (history: IHistory) => boolean;
 }
+
+export enum IStart {
+	Friendly,
+	Random,
+	Unfriendly,
+}
