@@ -29,6 +29,8 @@ export class Bot implements IBot {
 				return false;
 			case IStrategy.Random:
 				return Math.random() > 0.5;
+			case IStrategy.TitForTat:
+				return history.competitorMoves[history.competitorMoves.length - 1];
 		}
 	};
 }

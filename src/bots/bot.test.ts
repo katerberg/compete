@@ -113,6 +113,19 @@ describe('bots: bot', () => {
 
 				expect(result).to.eql(false);
 			});
+
+			test('titForTat gives last move of competitor', () => {
+				const previousMove = true;
+				const input: IHistory = {
+					competitorMoves: [previousMove],
+					myMoves: [false],
+				};
+				const testObject = new Bot('test', IStart.Random, IStrategy.TitForTat);
+
+				const result = testObject.cooperate(input);
+
+				expect(result).to.eql(previousMove);
+			});
 		});
 	});
 });

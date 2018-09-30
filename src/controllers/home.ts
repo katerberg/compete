@@ -4,9 +4,7 @@ import { Bot } from '../bots/bot';
 import { ForgivingBot } from '../bots/forgiving';
 import { FrenemyBot } from '../bots/frenemy';
 import { FriendlyBot } from '../bots/friendly';
-import { TitForTatBot } from '../bots/titForTat';
 import { TryToBeFriendlyThreeTimesBot } from '../bots/tryToBeFriendlyThreeTimes';
-import { WelcomingTitForTatBot } from '../bots/welcomingTitForTat';
 import { IBot, IStart, IStrategy } from '../interfaces';
 import { roundRobin, runTests } from '../services/results';
 
@@ -25,8 +23,8 @@ export const robinRoute = (req: Request, res: Response) => {
 		new Bot('Random', IStart.Random, IStrategy.Random),
 		new Bot('Cooperative', IStart.Friendly, IStrategy.Cooperative),
 		new Bot('Uncooperative', IStart.Unfriendly, IStrategy.Uncooperative),
-		new WelcomingTitForTatBot(),
-		new TitForTatBot(),
+		new Bot('Welcoming Tit For Tat', IStart.Friendly, IStrategy.TitForTat),
+		new Bot('Tit For Tat', IStart.Random, IStrategy.TitForTat),
 		new BackAndForthBot(),
 		new FriendlyBot(),
 		new TryToBeFriendlyThreeTimesBot(),
