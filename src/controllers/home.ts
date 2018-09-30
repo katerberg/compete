@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { BackAndForthBot } from '../bots/backAndForth';
-import { IBot } from '../bots/bot';
 import { CooperativeBot } from '../bots/cooperative';
 import { ForgivingBot } from '../bots/forgiving';
 import { FrenemyBot } from '../bots/frenemy';
@@ -10,6 +9,7 @@ import { TitForTatBot } from '../bots/titForTat';
 import { TryToBeFriendlyThreeTimesBot } from '../bots/tryToBeFriendlyThreeTimes';
 import { UncooperativeBot } from '../bots/uncooperative';
 import { WelcomingTitForTatBot } from '../bots/welcomingTitForTat';
+import { IBot } from '../interfaces';
 import { roundRobin, runTests } from '../services/results';
 
 export const oneOnOneRoute = (req: Request, res: Response) => {

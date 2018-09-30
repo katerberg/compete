@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 import { TryToBeFriendlyThreeTimesBot } from './tryToBeFriendlyThreeTimes';
 const { expect } = chai;
-import { IHistory } from './bot';
+import { IHistory } from '../interfaces';
 
 describe('bots: tryToBeFriendlyThreeTimes', () => {
 	let testObject: TryToBeFriendlyThreeTimesBot;

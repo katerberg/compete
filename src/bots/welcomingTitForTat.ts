@@ -1,4 +1,4 @@
-import { IBot, IHistory } from './bot';
+import { IBot, IHistory } from '../interfaces';
 
 export class WelcomingTitForTatBot implements IBot {
 	public name = 'Welcoming Tit For Tat';

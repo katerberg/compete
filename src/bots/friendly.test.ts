@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 import { FriendlyBot } from './friendly';
 const { expect } = chai;
-import { IHistory } from './bot';
+import { IHistory } from '../interfaces';
 
 describe('bots: friendly', () => {
 	let testObject: FriendlyBot;

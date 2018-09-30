@@ -2,10 +2,10 @@ import * as chai from 'chai';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
 import * as punishments from '../data/punishments';
+import { IHistory, IResults } from '../interfaces';
 import * as testObject from './results';
 chai.use(sinonChai);
 const { expect } = chai;
-import { IHistory } from '../bots/bot';
 
 describe('services: results', () => {
 	describe('calculateResults', () => {
@@ -50,25 +50,25 @@ describe('services: results', () => {
 		});
 
 		test('calculates results using cooperation functions', () => {
-			const expected: testObject.IResults = {
+			const expected: IResults = {
 				aResult: 5678,
 				bResult: 9876,
 			};
 			mockCalculator.returns(expected);
 
-			const result: testObject.IResults = testObject.runTests(1, () => true, () => false);
+			const result: IResults = testObject.runTests(1, () => true, () => false);
 
 			expect(result).to.eql(expected);
 		});
 
 		test('adds up multiple results', () => {
-			const mockResponse: testObject.IResults = {
+			const mockResponse: IResults = {
 				aResult: 2,
 				bResult: 1,
 			};
 			mockCalculator.returns(mockResponse);
 
-			const result: testObject.IResults = testObject.runTests(4, () => true, () => false);
+			const result: IResults = testObject.runTests(4, () => true, () => false);
 
 			expect(result).to.eql({
 				aResult: 8,
@@ -77,7 +77,7 @@ describe('services: results', () => {
 		});
 
 		test('builds up and passes history', () => {
-			const mockResponse: testObject.IResults = {
+			const mockResponse: IResults = {
 				aResult: 2,
 				bResult: 1,
 			};
@@ -107,7 +107,7 @@ describe('services: results', () => {
 				return false;
 			});
 
-			const result: testObject.IResults = testObject.runTests(2, aFn, bFn);
+			const result: IResults = testObject.runTests(2, aFn, bFn);
 
 			expect(aFn.callCount).to.equal(2);
 			expect(bFn.callCount).to.equal(2);

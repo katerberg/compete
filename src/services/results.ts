@@ -1,17 +1,5 @@
-import { IBot, IHistory } from '../bots/bot';
 import * as punishments from '../data/punishments';
-
-export interface IBotResult {
-	name: string;
-	result: number;
-}
-
-export interface IResults {
-	aResult: number;
-	bResult: number;
-}
-
-export type ICooperationFn = (history?: IHistory) => boolean;
+import { IBot, IBotResult, ICooperationFn, IHistory, IResults } from '../interfaces';
 
 export const roundRobin = (numberOfTimes: number, bots: IBot[]): IBotResult[] => {
 	const results: IBotResult[] = [];

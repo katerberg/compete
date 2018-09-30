@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 import { ForgivingBot } from './forgiving';
 const { expect } = chai;
-import { IHistory } from './bot';
+import { IHistory } from '../interfaces';
 
 describe('bots: forgiving', () => {
 	let testObject: ForgivingBot;
