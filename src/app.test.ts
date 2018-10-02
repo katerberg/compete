@@ -9,18 +9,18 @@ describe('GET /random-url', () => {
 	});
 });
 
-describe('GET /home', () => {
+describe('GET /api', () => {
 	it('should return 200', done => {
 		request(app)
-			.get('/')
+			.get('/api')
 			.expect(200, done);
 	});
 });
 
-describe('GET /robin', () => {
+describe('GET /api/robin', () => {
 	it('should return 200', done => {
 		request(app)
-			.get('/robin')
+			.get('/api/robin')
 			.expect(200, done);
 	});
 });

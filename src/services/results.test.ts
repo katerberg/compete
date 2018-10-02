@@ -107,7 +107,7 @@ describe('services: results', () => {
 				return false;
 			});
 
-			const result: IResults = testObject.runTests(2, aFn, bFn);
+			testObject.runTests(2, aFn, bFn);
 
 			expect(aFn.callCount).to.equal(2);
 			expect(bFn.callCount).to.equal(2);

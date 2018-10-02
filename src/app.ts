@@ -6,6 +6,7 @@ import * as path from 'path';
 
 // Controllers (route handlers)
 import * as homeController from './controllers/home';
+import * as viewController from './controllers/view';
 
 // Create Express server
 const app = express();
@@ -21,10 +22,12 @@ app.use(expressValidator());
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
-/**
- * Primary app routes.
- */
-app.get('/', homeController.oneOnOneRoute);
-app.get('/robin', homeController.robinRoute);
+// Views
+app.get('/', (_req, res) => res.render('index'));
+app.post('/one-on-one', viewController.oneOnOneRoute);
+
+// API routes
+app.get('/api', homeController.oneOnOneRoute);
+app.get('/api/robin', homeController.robinRoute);
 
 export default app;

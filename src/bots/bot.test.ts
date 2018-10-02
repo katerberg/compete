@@ -1,10 +1,7 @@
 import * as chai from 'chai';
 import { mockRandom } from 'jest-mock-random';
-import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
 import { IHistory, IStart, IStrategy } from '../interfaces';
 import { Bot } from './bot';
-chai.use(sinonChai);
 const { expect } = chai;
 
 describe('bots: bot', () => {
