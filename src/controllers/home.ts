@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { Bot } from '../bots/bot';
 import { ForgivingBot } from '../bots/forgiving';
-import { FrenemyBot } from '../bots/frenemy';
 import { IBot, IStart, IStrategy } from '../interfaces';
 import { roundRobin, runTests } from '../services/results';
 
