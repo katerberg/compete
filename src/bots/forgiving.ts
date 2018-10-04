@@ -1,7 +1,10 @@
-import { IBot, IHistory } from '../interfaces';
+import { IHistory } from '../interfaces';
+import { Bot } from './bot';
 
-export class ForgivingBot implements IBot {
-	public name = 'Forgiving';
+export class ForgivingBot extends Bot {
+	constructor() {
+		super('Forgiving', null, null);
+	}
 
 	public cooperate = (history: IHistory): boolean => {
 		if (!history.competitorMoves.length) {
