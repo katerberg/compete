@@ -5,7 +5,7 @@ import * as expressValidator from 'express-validator';
 import * as path from 'path';
 
 // Controllers (route handlers)
-import * as homeController from './controllers/home';
+import * as apiController from './controllers/api';
 import * as viewController from './controllers/view';
 
 // Create Express server
@@ -27,7 +27,7 @@ app.get('/', (_req, res) => res.render('index'));
 app.post('/one-on-one', viewController.oneOnOneRoute);
 
 // API routes
-app.get('/api', homeController.oneOnOneRoute);
-app.get('/api/robin', homeController.robinRoute);
+app.get('/api', apiController.oneOnOneRoute);
+app.get('/api/robin', apiController.robinRoute);
 
 export default app;
