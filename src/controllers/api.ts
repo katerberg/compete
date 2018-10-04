@@ -7,7 +7,7 @@ import { roundRobin, runTests } from '../services/results';
 export const oneOnOneRoute = (req: Request, res: Response) => {
 	const bot1: IBot = new Bot('Random', IStart.Random, IStrategy.Random);
 	const bot2: IBot = new Bot('Cooperative', IStart.Friendly, IStrategy.Cooperative);
-	const results = runTests(req.query.iterations || 1000, bot1.cooperate, bot2.cooperate);
+	const results = runTests(req.query.iterations || 1000, bot1, bot2);
 	res.status(200).send({
 		bot1: results.aResult,
 		bot2: results.bResult,

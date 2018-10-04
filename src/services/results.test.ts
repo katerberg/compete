@@ -1,8 +1,9 @@
 import * as chai from 'chai';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
+import { Bot } from '../bots/bot';
 import * as punishments from '../data/punishments';
-import { IHistory, IResults } from '../interfaces';
+import { IBot, ICooperationFn, IHistory, IResults } from '../interfaces';
 import * as testObject from './results';
 chai.use(sinonChai);
 const { expect } = chai;
@@ -40,9 +41,15 @@ describe('services: results', () => {
 
 	describe('runTests', () => {
 		let mockCalculator: sinon.SinonStub;
+		let botBuilder: (cooperationFn: ICooperationFn) => IBot;
 
 		beforeEach(() => {
 			mockCalculator = sinon.stub(testObject, 'calculateResults');
+			botBuilder = cooperationFn => {
+				const bot = new Bot('aTest', null, null);
+				bot.cooperate = cooperationFn;
+				return bot;
+			};
 		});
 
 		afterEach(() => {
@@ -56,7 +63,7 @@ describe('services: results', () => {
 			};
 			mockCalculator.returns(expected);
 
-			const result: IResults = testObject.runTests(1, () => true, () => false);
+			const result: IResults = testObject.runTests(1, botBuilder(() => true), botBuilder(() => false));
 
 			expect(result).to.eql(expected);
 		});
@@ -68,7 +75,7 @@ describe('services: results', () => {
 			};
 			mockCalculator.returns(mockResponse);
 
-			const result: IResults = testObject.runTests(4, () => true, () => false);
+			const result: IResults = testObject.runTests(4, botBuilder(() => true), botBuilder(() => false));
 
 			expect(result).to.eql({
 				aResult: 8,
@@ -107,7 +114,7 @@ describe('services: results', () => {
 				return false;
 			});
 
-			testObject.runTests(2, aFn, bFn);
+			testObject.runTests(2, botBuilder(aFn), botBuilder(bFn));
 
 			expect(aFn.callCount).to.equal(2);
 			expect(bFn.callCount).to.equal(2);
