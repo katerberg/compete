@@ -17,6 +17,7 @@ export interface IHistory {
 
 export interface IBot {
 	name: string;
+	battle: (bot: IBot, numberOfTimes: number) => IResults;
 	cooperate: (history: IHistory) => boolean;
 }
 

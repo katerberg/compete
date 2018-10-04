@@ -1,5 +1,5 @@
 import * as punishments from '../data/punishments';
-import { IBot, IBotResult, IHistory, IResults } from '../interfaces';
+import { IBot, IBotResult, IResults } from '../interfaces';
 
 export const roundRobin = (numberOfTimes: number, bots: IBot[]): IBotResult[] => {
 	const results: IBotResult[] = [];
@@ -12,38 +12,11 @@ export const roundRobin = (numberOfTimes: number, bots: IBot[]): IBotResult[] =>
 	for (let i = 0; i < bots.length; i++) {
 		for (let j = 0; j < bots.length; j++) {
 			if (i !== j && j > i) {
-				const oneOnOne = runTests(numberOfTimes, bots[i], bots[j]);
+				const oneOnOne = bots[i].battle(bots[j], numberOfTimes);
 				results[i].result += oneOnOne.aResult;
 				results[j].result += oneOnOne.bResult;
 			}
 		}
-	}
-	return results;
-};
-
-export const runTests = (numberOfTimes: number, aBot: IBot, bBot: IBot): IResults => {
-	const results = {
-		aResult: 0,
-		bResult: 0,
-	};
-	const aHistory: IHistory = {
-		competitorMoves: [],
-		myMoves: [],
-	};
-	const bHistory: IHistory = {
-		competitorMoves: [],
-		myMoves: [],
-	};
-	for (let i = 0; i < numberOfTimes; i++) {
-		const aChoice = aBot.cooperate(aHistory);
-		const bChoice = bBot.cooperate(bHistory);
-		aHistory.myMoves.push(aChoice);
-		aHistory.competitorMoves.push(bChoice);
-		bHistory.myMoves.push(bChoice);
-		bHistory.competitorMoves.push(aChoice);
-		const oneTimeResult = calculateResults(aChoice, bChoice);
-		results.aResult = results.aResult + oneTimeResult.aResult;
-		results.bResult = results.bResult + oneTimeResult.bResult;
 	}
 	return results;
 };

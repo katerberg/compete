@@ -2,12 +2,12 @@ import { Request, Response } from 'express';
 import { Bot } from '../bots/bot';
 import { ForgivingBot } from '../bots/forgiving';
 import { IBot, IStart, IStrategy } from '../interfaces';
-import { roundRobin, runTests } from '../services/results';
+import { roundRobin } from '../services/results';
 
 export const oneOnOneRoute = (req: Request, res: Response) => {
 	const bot1: IBot = new Bot('Random', IStart.Random, IStrategy.Random);
 	const bot2: IBot = new Bot('Cooperative', IStart.Friendly, IStrategy.Cooperative);
-	const results = runTests(req.query.iterations || 1000, bot1, bot2);
+	const results = bot1.battle(bot2, req.query.iterations || 1000);
 	res.status(200).send({
 		bot1: results.aResult,
 		bot2: results.bResult,

@@ -1,4 +1,5 @@
-import { IBot, IHistory, IStart, IStrategy } from '../interfaces';
+import { IBot, IHistory, IResults, IStart, IStrategy } from '../interfaces';
+import * as resultsService from '../services/results';
 
 export class Bot implements IBot {
 	public name: string;
@@ -45,5 +46,32 @@ export class Bot implements IBot {
 			case IStrategy.Baseball:
 				return history.competitorMoves.filter(move => !move).length < 3;
 		}
+	};
+
+	public battle = (bot: IBot, numberOfTimes: number): IResults => {
+		const results = {
+			aResult: 0,
+			bResult: 0,
+		};
+		const aHistory: IHistory = {
+			competitorMoves: [],
+			myMoves: [],
+		};
+		const bHistory: IHistory = {
+			competitorMoves: [],
+			myMoves: [],
+		};
+		for (let i = 0; i < numberOfTimes; i++) {
+			const aChoice = this.cooperate(aHistory);
+			const bChoice = bot.cooperate(bHistory);
+			aHistory.myMoves.push(aChoice);
+			aHistory.competitorMoves.push(bChoice);
+			bHistory.myMoves.push(bChoice);
+			bHistory.competitorMoves.push(aChoice);
+			const oneTimeResult = resultsService.calculateResults(aChoice, bChoice);
+			results.aResult = results.aResult + oneTimeResult.aResult;
+			results.bResult = results.bResult + oneTimeResult.bResult;
+		}
+		return results;
 	};
 }
