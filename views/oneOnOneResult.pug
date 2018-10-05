@@ -9,4 +9,14 @@ html
     div= aResult
     div= bName
     div= bResult
+    form(action='/one-on-one' method='post')
+      div(style="display: none")
+        input(type='text' name='bot1Name' value=aName)
+        input(type='text' name='bot2Name' value=bName)
+        input(type='text' name='bot1Start' value=bot1Start)
+        input(type='text' name='bot2Start' value=bot2Start)
+        input(type='text' name='bot1Strategy' value=bot1Strategy)
+        input(type='text' name='bot2Strategy' value=bot2Strategy)
+        input(type='text' name='iterations' value=iterations)
+      button Resubmit
 

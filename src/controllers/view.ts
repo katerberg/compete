@@ -12,15 +12,21 @@ export const oneOnOneRoute = (req: Request, res: Response): void => {
 	const bot2Strategy: IStrategy = validationService.isIStrategy(req.body.bot2Strategy)
 		? req.body.bot2Strategy
 		: IStrategy.Random;
+	const iterations = req.body.iterations || 1000;
 
 	const bot1 = new Bot(req.body.bot1Name || 'Bot 1', bot1Start, bot1Strategy);
 	const bot2 = new Bot(req.body.bot2Name || 'Bot 2', bot2Start, bot2Strategy);
 
-	const results = bot1.battle(bot2, req.body.iterations || 1000);
+	const results = bot1.battle(bot2, iterations);
 	res.render('oneOnOneResult', {
 		aName: bot1.name,
 		aResult: results.aResult,
 		bName: bot2.name,
 		bResult: results.bResult,
+		bot1Start,
+		bot1Strategy,
+		bot2Start,
+		bot2Strategy,
+		iterations,
 	});
 };
