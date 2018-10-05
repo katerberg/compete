@@ -7,10 +7,24 @@ html
     h1 Hello
     form(action='/one-on-one' method='post')
       h2 One on One
+      h3 First Bot
       div
-        label(for='bot1') First Bot
-        input(type='text' name='bot1')
+        label(for='bot1Name') Name
+        input(type='text' name='bot1Name')
       div
-        label(for='bot2') Second Bot
-        input(type='text' name='bot2')
+        label(for='bot1Start') Starting Strategy
+        input(type='text' name='bot1Start')
+      div
+        label(for='bot1Strategy') Continuous Strategy
+        input(type='text' name='bot1Strategy')
+      h3 Second Bot
+      div
+        label(for='bot2Name') Name
+        input(type='text' name='bot2Name')
+      div
+        label(for='bot2Start') Starting Strategy
+        input(type='text' name='bot2Start')
+      div
+        label(for='bot2Strategy') Continuous Strategy
+        input(type='text' name='bot2Strategy')
       button Submit

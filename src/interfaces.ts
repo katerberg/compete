@@ -22,17 +22,17 @@ export interface IBot {
 }
 
 export enum IStart {
-	Friendly,
-	Random,
-	Unfriendly,
+	Friendly = 'FRIENDLY',
+	Random = 'RANDOM',
+	Unfriendly = 'UNFRIENDLY',
 }
 
 export enum IStrategy {
-	Cooperative,
-	Random,
-	TitForTat,
-	Uncooperative,
-	BackAndForth,
-	Friendly,
-	Baseball,
+	Cooperative = 'COOPERATIVE',
+	Random = 'RANDOM',
+	TitForTat = 'TITFORTAT',
+	Uncooperative = 'UNCOOPERATIVE',
+	BackAndForth = 'BACKANDFORTH',
+	Friendly = 'FRIENDLY',
+	Baseball = 'BASEBALL',
 }
