@@ -13,18 +13,38 @@ html
         input(type='text' name='bot1Name')
       div
         label(for='bot1Start') Starting Strategy
-        input(type='text' name='bot1Start')
+        select(name='bot1Start')
+          option(value='RANDOM') Random
+          option(value='FRIENDLY') Cooperative
+          option(value='UNFRIENDLY') Uncooperative
       div
         label(for='bot1Strategy') Continuous Strategy
-        input(type='text' name='bot1Strategy')
+        select(name='bot1Strategy')
+          option(value='RANDOM') Random
+          option(value='COOPERATIVE') Cooperative
+          option(value='UNCOOPERATIVE') Uncooperative
+          option(value='TITFORTAT') Tit-For-Tat
+          option(value='BASEBALL') Baseball
+          option(value='BACKANDFORTH') Back-And-Forth
+          option(value='FRIENDLY') Roadhouse
       h3 Second Bot
       div
         label(for='bot2Name') Name
         input(type='text' name='bot2Name')
       div
         label(for='bot2Start') Starting Strategy
-        input(type='text' name='bot2Start')
+        select(name='bot2Start')
+          option(value='RANDOM') Random
+          option(value='FRIENDLY') Cooperative
+          option(value='UNFRIENDLY') Uncooperative
       div
         label(for='bot2Strategy') Continuous Strategy
-        input(type='text' name='bot2Strategy')
+        select(name='bot2Strategy')
+          option(value='RANDOM') Random
+          option(value='COOPERATIVE') Cooperative
+          option(value='UNCOOPERATIVE') Uncooperative
+          option(value='TITFORTAT') Tit-For-Tat
+          option(value='BASEBALL') Baseball
+          option(value='BACKANDFORTH') Back-And-Forth
+          option(value='FRIENDLY') Roadhouse
       button Submit
