@@ -16,7 +16,7 @@ export const oneOnOneRoute = (req: Request, res: Response): void => {
 	const bot1 = new Bot(req.body.bot1Name || 'Bot 1', bot1Start, bot1Strategy);
 	const bot2 = new Bot(req.body.bot2Name || 'Bot 2', bot2Start, bot2Strategy);
 
-	const results = bot1.battle(bot2, 1000);
+	const results = bot1.battle(bot2, req.body.iterations || 1000);
 	res.render('oneOnOneResult', {
 		aName: bot1.name,
 		aResult: results.aResult,
