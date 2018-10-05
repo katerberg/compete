@@ -15,15 +15,14 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
+app.use('/', express.static('public'));
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-
 // Views
-app.get('/', (_req, res) => res.render('index'));
+app.get('/start', (_req, res) => res.render('index'));
 app.post('/one-on-one', viewController.oneOnOneRoute);
 
 // API routes
